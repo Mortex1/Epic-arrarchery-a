@@ -5,56 +5,29 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var canvas;
-var palyer, playerBase;
+var player, playerBase;
 var computer, computerBase;
-
-//Declare an array for arrows playerArrows = [ ]
-var playerArrows = [];
-
-var arrow;
 
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight);
+  createCanvas(1500,600)
+  //canvas = createCanvas(windowWidth, windowHeight);
 
   engine = Engine.create();
   world = engine.world;
 
   playerBase = new PlayerBase(300, random(450, height - 300), 180, 150);
-  player = new Player(285, playerBase.body.position.y - 153, 50, 180);
-  playerArcher = new PlayerArcher(
-    340,
-    playerBase.body.position.y - 180,
-    120,
-    120
-  );
+  player=new Player(285,playerBase.body.position.y-153,50,180);
 
-  computerBase = new ComputerBase(
-    width - 300,
-    random(450, height - 300),
-    180,
-    150
-  );
-  computer = new Computer(
-    width - 280,
-    computerBase.body.position.y - 153,
-    50,
-    180
-  );
-  computerArcher = new ComputerArcher(
-    width - 340,
-    computerBase.body.position.y - 180,
-    120,
-    120
-  );
+
+  computerBase = new ComputerBase(1200, random(450, height - 300), 180, 150);
+  computer=new Computer(1200,computerBase.body.position.y-153,50,180);
+
   
- 
-
-
 }
 
 function draw() {
-  background(180);
+  background(189);
 
   Engine.update(engine);
 
@@ -66,90 +39,10 @@ function draw() {
 
  
   playerBase.display();
+
   player.display();
-  
 
   computerBase.display();
   computer.display();
   
-  playerArcher.display();
-  computerArcher.display()
-
- // Uncomment and use correct for loop to display arrow using showArrow() function
- for (var i=0; i<playerArrows.length; i++) 
- {
-  showArrows(i, playerArrows);
-  }
-
- 
-
-
-
-
-
-
-}
-
-/*********** Choose correct keyPressed() function out of these *************/
-
- function keyPressed() {
-    // create an arrow object and add into an array ; set its angle same as angle of playerArcher
-    var posX = playerArcher.body.position.x;
-   var posY = playerArcher.body.position.y;
-   var angle = playerArcher.body.angle+PI/2;
-     var arrow = new PlayerArrow(posX, posY, 100, 10);
-     arrow.trajectory = [];
-     Matter.Body.setAngle(arrow.body, angle);
-     playerArrows.push(arrow);
- }
-
-
-// function keyPressed() {
-//   if(keyCode === 32){
-//     // create an arrow object and add into an array ; set its angle same as angle of playerArcher
-//     var posX = playerArcher.body.position.x;
-//     var posY = playerArcher.body.position.y;
-//     var angle = playerArcher.body.angle+PI/2;
-//     var arrow = new PlayerArrow(posX, posY, 100, 10);
-//     arrow.trajectory = [];
-//     Matter.Body.setAngle(arrow.body, angle);
-//     playerArrows.push(arrow);
-//   }
-// }
-
-
-// function keyPressed() {
-//   if(keyCode === 32){
-//     // create an arrow object and add into an array ; set its angle same as angle of playerArcher
-//     var posX = playerArcher.body.position.x;
-//     var posY = playerArcher.body.position.y;
-//     var angle = playerArcher.body.angle+PI/2;
-//     Matter.Body.setAngle(arrow.body, angle);
-//     playerArrows.push(arrow);
-//   }
-// }
-
-
-
-
-
-function keyReleased () {
-
-  if(keyCode === 32){
-    //call shoot() function for each arrow in an array playerArrows
-    if (playerArrows.length) {
-      var angle = playerArcher.body.angle+PI/2;
-      playerArrows[playerArrows.length - 1].shoot(angle);
-    }
-  }
-
-}
-//Display arrow and Tranjectory
-function showArrows(index, arrows) {
-  arrows[index].display();
-  
-    
-  
- 
-
 }
